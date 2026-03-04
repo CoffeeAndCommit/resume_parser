@@ -64,10 +64,32 @@ To train the classifier on the dataset and save the model:
 python main.py
 ```
 
-### 2. Making Predictions
-To predict the role of a new resume snippet:
+### 2. Running the API
+The project includes a Flask-based API for making predictions via text or PDF file upload. Run the server using:
 ```bash
 python predict.py
+```
+*Note: Ensure an `uploads/` folder exists for saving uploaded PDFs.*
+
+---
+
+## 🧪 Testing the API
+
+You can test the API using `curl` from your terminal while the server is running.
+
+### 1. Predict Role from Text
+Send a JSON payload with `resume_text`:
+```bash
+curl -X POST http://127.0.0.1:5000/predict-text \
+     -H "Content-Type: application/json" \
+     -d '{"resume_text": "Experienced Python Developer with expertise in Flask and SQL."}'
+```
+
+### 2. Predict Role from PDF File
+Upload a `.pdf` file:
+```bash
+curl -X POST http://127.0.0.1:5000/predict-file \
+     -F "file=@data/raw/sample_resume.pdf"
 ```
 
 ---
@@ -82,7 +104,13 @@ Currently, the model achieves high accuracy on the sample dataset by distinguish
 
 ---
 
+## 📂 API Details (predict.py)
+- **POST `/predict-text`**: Accepts JSON with raw text.
+- **POST `/predict-file`**: Accepts form-data with a PDF file.
+
+---
+
 ## 📝 Future Scope
 - [ ] Implement multi-label classification (for candidates with multiple skills).
-- [ ] Add a Web Interface (Flask/Streamlit).
+- [ ] Add a Web Interface using Streamlit.
 - [ ] Integrate a Vector Database (FAISS/Chroma) for resume ranking.
