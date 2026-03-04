@@ -3,7 +3,7 @@ import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-def create_tfidf_features(resume_text, labels):
+def create_tfidf_features(resume_text, ):
     #  """
     # texts: list of processed resume texts
     # labels: list of corresponding labels
@@ -18,7 +18,7 @@ def create_tfidf_features(resume_text, labels):
     )
     joblib.dump(vectorizer, "models/tfidf_vectorizer.pkl")
     X = vectorizer.fit_transform(resume_text)
-    Y = np.array(labels)
-    return X, Y, vectorizer
+    # Y = np.array(labels)
+    return X, vectorizer
     
     
