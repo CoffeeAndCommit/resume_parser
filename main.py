@@ -1,13 +1,20 @@
-from src.parser import extract_text_from_pdf
-from src.preprocessing import clean_text, tokenize_text, preprocess_text
+from src.features import create_tfidf_features
 
-text =    extract_text_from_pdf("data/raw/sample_resume.pdf")
-cleaned = clean_text(text)
+texts = [
+    "python machine learning data analysis",
+    "java backend spring boot microservices",
+    "deep learning neural networks python",
+    "react frontend javascript ui development"
+]
 
-tokens = tokenize_text(cleaned)
-print(tokens[:50])
+labels = [
+    "Data Scientist",
+    "Backend Developer",
+    "Data Scientist",
+    "Frontend Developer"
+]
 
-processed_text = preprocess_text(text)
-print(processed_text[:500])
+X, Y, vectorizer = create_tfidf_features(resume_text=texts, labels=labels)
 
-
+print("Shape of feature matrix:", X.shape)
+print("Shape of label matrix:", Y.shape)
